@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 
 metadata:
-  name: golang-microservice-starter
+  name: golang-microservice-starter 1.0
   title: Golang Microservice
   description: get started with microservice in golang created using cookiecutter
 spec:
@@ -50,3 +50,4 @@ spec:
         values:
           project_name: '${{ parameters.name }}'
           project_owner: '${{ parameters.owner }}'
+          url: config.getString('app.baseUrl')
