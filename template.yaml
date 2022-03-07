@@ -1,34 +1,28 @@
---- 
+
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
-metadata: 
-  name: golang-microservice-starter
-  title: "Golang Microservice"
-  description: "Create a simple microservice with Golang"
-  tags: 
-    - experimental
-    - go
 
-spec: 
-  owner: naman17@gmail.com
+metadata:
+  name: golang-microservice-starter
+  title: Golang Microservice
+  description: get started with microservice in golang
+spec:
+  owner: nmnjn
   type: service
 
+  # these are the steps which are rendered in the frontend with the form input
   parameters:
     - title: Fill in some steps
       required:
         - name
-        - description
       properties:
         name:
           title: Name
           type: string
           description: Unique name of the component
-          ui:field: EntityNamePicker
           ui:autofocus: true
-        description:
-          title: Description
-          type: string
-          description: A description for the component
+          ui:options:
+            rows: 5
         owner:
           title: Owner
           type: string
@@ -47,16 +41,15 @@ spec:
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
-              - bitbucket.com
+              - bitbucket.org
 
-    steps:
-      - id: fetch
-        name: Template Docs Skeleton
-        action: fetch:template
-        input:
-          url: ./skeleton
-          values:
-            name: ${{ parameters.name }}
-            description: ${{ parameters.description }}
-            destination: ${{ parameters.repoUrl | parseRepoUrl }}
-            owner: ${{ parameters.owner }}
+  # here's the steps that are executed in series in the scaffolder backend
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./template
+        values:
+          name: ${{ parameters.name }}
+          owner: ${{ parameters.owner }}
