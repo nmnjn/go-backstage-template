@@ -46,6 +46,7 @@ spec:
       action: 'fetch:cookiecutter'
       input:
         url: ./
+        copyWithoutRender: ["template.yaml"]
         values:
           project_name: '${{ parameters.name }}'
           project_owner: '${{ parameters.owner }}'
