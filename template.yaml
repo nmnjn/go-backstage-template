@@ -47,5 +47,5 @@ spec:
       input:
         url: ./
         values:
-          name: '${{ parameters.name }}'
-          owner: '${{ parameters.owner }}'
+          project_name: '${{ parameters.name }}'
+          project_owner: '${{ parameters.owner }}'
