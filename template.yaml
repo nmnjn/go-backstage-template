@@ -51,3 +51,9 @@ spec:
           project_name: '${{ parameters.name }}'
           project_owner: '${{ parameters.owner }}'
           url: config.getString('app.baseUrl')
+
+    - id: publish
+      name: Publish
+      action: publish:bitbucket
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
