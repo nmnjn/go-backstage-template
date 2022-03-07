@@ -1,0 +1,14 @@
+--- 
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata: 
+  name: golang-microservice-starter
+  title: "Golang Microservice"
+  description: "Create a simple microservice with Golang"
+  tags: 
+    - experimental
+    - go
+
+spec: 
+  owner: naman17@gmail.com
+  type: service
