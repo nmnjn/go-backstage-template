@@ -1,32 +1,26 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
+
 metadata:
-  name: docs-template
-  title: Documentation Template
-  description: Create a new standalone documentation project
-  tags:
-    - recommended
-    - techdocs
-    - mkdocs
+  name: golang-microservice-starter
+  title: Golang Microservice
+  description: get started with microservice in golang created using cookiecutter
 spec:
-  owner: backstage/techdocs-core
-  type: documentation
+  owner: nmnjn
+  type: service
+
   parameters:
-    - title: Fill in some steps
+    - title: Enter project information
       required:
         - name
-        - description
       properties:
         name:
           title: Name
           type: string
-          description: Unique name of the component
-          'ui:field': EntityNamePicker
+          description: Unique name of the service
           'ui:autofocus': true
-        description:
-          title: Description
-          type: string
-          description: A description for the component
+          'ui:options':
+            rows: 5
         owner:
           title: Owner
           type: string
@@ -45,32 +39,13 @@ spec:
           'ui:field': RepoUrlPicker
           'ui:options':
             allowedHosts:
-              - github.com
+              - bitbucket.org
   steps:
-    - id: fetch
-      name: Template Docs Skeleton
-      action: 'fetch:template'
+    - id: fetch-base
+      name: Fetch Base Template
+      action: 'fetch:cookiecutter'
       input:
-        url: ./skeleton
+        url: ./
         values:
           name: '${{ parameters.name }}'
-          description: '${{ parameters.description }}'
-          destination: '${{ parameters.repoUrl | parseRepoUrl }}'
           owner: '${{ parameters.owner }}'
-    - id: publish
-      name: Publish
-      action: 'publish:github'
-      input:
-        allowedHosts:
-          - github.com
-        description: 'This is ${{ parameters.name }}'
-        repoUrl: '${{ parameters.repoUrl }}'
-    - id: register
-      name: Register
-      action: 'catalog:register'
-      input:
-        repoContentsUrl: '${{ steps.publish.output.repoContentsUrl }}'
-        catalogInfoPath: /catalog-info.yaml
-  output:
-    remoteUrl: '${{ steps.publish.output.remoteUrl }}'
-    entityRef: '${{ steps.register.output.entityRef }}'
