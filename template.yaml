@@ -50,4 +50,3 @@ spec:
         values:
           project_name: '${{ parameters.name }}'
           project_owner: '${{ parameters.owner }}'
-          url: '${{ config.getString('app.baseUrl') }}'
